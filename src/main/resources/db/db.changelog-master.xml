@@ -1,0 +1,51 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
+    <changeSet author="felix (generated)" id="1668287219860-1">
+        <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="hibernate_sequence" startValue="1"/>
+    </changeSet>
+    <changeSet author="felix (generated)" id="1668287219860-2">
+        <createTable tableName="papel">
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="papel_pkey"/>
+            </column>
+            <column name="role_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="felix (generated)" id="1668287219860-3">
+        <createTable tableName="tb_usuarios_papeis">
+            <column name="user_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="BIGINT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="felix (generated)" id="1668287219860-4">
+        <createTable tableName="usuario">
+            <column autoIncrement="true" name="user_id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="usuario_pkey"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="username" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="felix (generated)" id="1668287219860-5">
+        <addUniqueConstraint columnNames="username" constraintName="uk_863n1y3x0jalatoir4325ehal" tableName="usuario"/>
+    </changeSet>
+    <changeSet author="felix (generated)" id="1668287219860-6">
+        <addUniqueConstraint columnNames="role_name" constraintName="uk_fiiaff2hlymyoj55h1mwum2y1" tableName="papel"/>
+    </changeSet>
+    <changeSet author="felix (generated)" id="1668287219860-7">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="tb_usuarios_papeis" constraintName="fk2ng3owfqncv7a8j8ns1r022g0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="role_id" referencedTableName="papel" validate="true"/>
+    </changeSet>
+    <changeSet author="felix (generated)" id="1668287219860-8">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="tb_usuarios_papeis" constraintName="fkh3h5wqk3k1kepj4n25al50qwk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="usuario" validate="true"/>
+    </changeSet>
+</databaseChangeLog>
