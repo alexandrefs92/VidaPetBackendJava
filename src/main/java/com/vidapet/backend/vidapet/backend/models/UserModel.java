@@ -35,6 +35,8 @@ public class UserModel implements UserDetails, Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<RoleModel> roles;
 
+    @OneToOne(mappedBy = "user")
+    private PessoaModel pessoa;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -87,8 +89,6 @@ public class UserModel implements UserDetails, Serializable {
         this.password = password;
     }
 
-    @OneToOne(mappedBy = "user")
-    private PessoaModel pessoa;
 
     public UserModel(Long userId, String username, String password) {
         this.userId = userId;

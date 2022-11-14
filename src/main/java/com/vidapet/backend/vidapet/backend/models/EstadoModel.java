@@ -44,6 +44,13 @@ public class EstadoModel implements Serializable {
         this.sigla = sigla;
     }
 
+    public EnderecoModel getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(EnderecoModel endereco) {
+        this.endereco = endereco;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -57,12 +64,6 @@ public class EstadoModel implements Serializable {
         return Objects.hash(id);
     }
 
-    public EnderecoModel getEndereco() {
-        return endereco;
-    }
 
-    public void setEndereco(EnderecoModel endereco) {
-        this.endereco = endereco;
-    }
 }
 
