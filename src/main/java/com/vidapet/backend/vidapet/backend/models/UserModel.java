@@ -1,11 +1,13 @@
 package com.vidapet.backend.vidapet.backend.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -84,6 +86,9 @@ public class UserModel implements UserDetails, Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @OneToOne(mappedBy = "user")
+    private PessoaModel pessoa;
 
     public UserModel(Long userId, String username, String password) {
         this.userId = userId;

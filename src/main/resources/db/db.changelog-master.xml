@@ -1,9 +1,26 @@
 <?xml version="1.1" encoding="UTF-8" standalone="no"?>
 <databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:pro="http://www.liquibase.org/xml/ns/pro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/pro http://www.liquibase.org/xml/ns/pro/liquibase-pro-latest.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
-    <changeSet author="felix (generated)" id="1668287219860-1">
+    <changeSet author="felix (generated)" id="1668387924626-1">
         <createSequence cacheSize="1" cycle="false" dataType="bigint" incrementBy="1" maxValue="9223372036854775807" minValue="1" sequenceName="hibernate_sequence" startValue="1"/>
     </changeSet>
-    <changeSet author="felix (generated)" id="1668287219860-2">
+    <changeSet author="felix (generated)" id="1668387924626-2">
+        <createTable tableName="endereco">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="endereco_pkey"/>
+            </column>
+            <column name="logradouro" type="VARCHAR(255)"/>
+            <column name="estado_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="felix (generated)" id="1668387924626-3">
+        <createTable tableName="estado">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="estado_pkey"/>
+            </column>
+            <column name="sigla" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="felix (generated)" id="1668387924626-4">
         <createTable tableName="papel">
             <column name="role_id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="papel_pkey"/>
@@ -13,7 +30,20 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="felix (generated)" id="1668287219860-3">
+    <changeSet author="felix (generated)" id="1668387924626-5">
+        <createTable tableName="pessoa">
+            <column name="id" type="BIGINT">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="pessoa_pkey"/>
+            </column>
+            <column name="data_nascimento" type="TIMESTAMP WITHOUT TIME ZONE"/>
+            <column name="email" type="VARCHAR(255)"/>
+            <column name="nome" type="VARCHAR(255)"/>
+            <column name="tipo_pessoa" type="VARCHAR(255)"/>
+            <column name="endereco_id" type="BIGINT"/>
+            <column name="usuario_id" type="BIGINT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="felix (generated)" id="1668387924626-6">
         <createTable tableName="tb_usuarios_papeis">
             <column name="user_id" type="BIGINT">
                 <constraints nullable="false"/>
@@ -23,7 +53,7 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="felix (generated)" id="1668287219860-4">
+    <changeSet author="felix (generated)" id="1668387924626-7">
         <createTable tableName="usuario">
             <column autoIncrement="true" name="user_id" type="BIGINT">
                 <constraints nullable="false" primaryKey="true" primaryKeyName="usuario_pkey"/>
@@ -36,16 +66,25 @@
             </column>
         </createTable>
     </changeSet>
-    <changeSet author="felix (generated)" id="1668287219860-5">
+    <changeSet author="felix (generated)" id="1668387924626-8">
         <addUniqueConstraint columnNames="username" constraintName="uk_863n1y3x0jalatoir4325ehal" tableName="usuario"/>
     </changeSet>
-    <changeSet author="felix (generated)" id="1668287219860-6">
+    <changeSet author="felix (generated)" id="1668387924626-9">
         <addUniqueConstraint columnNames="role_name" constraintName="uk_fiiaff2hlymyoj55h1mwum2y1" tableName="papel"/>
     </changeSet>
-    <changeSet author="felix (generated)" id="1668287219860-7">
+    <changeSet author="felix (generated)" id="1668387924626-10">
         <addForeignKeyConstraint baseColumnNames="role_id" baseTableName="tb_usuarios_papeis" constraintName="fk2ng3owfqncv7a8j8ns1r022g0" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="role_id" referencedTableName="papel" validate="true"/>
     </changeSet>
-    <changeSet author="felix (generated)" id="1668287219860-8">
+    <changeSet author="felix (generated)" id="1668387924626-11">
+        <addForeignKeyConstraint baseColumnNames="endereco_id" baseTableName="pessoa" constraintName="fkei4abnsw085kx27j89rp796ny" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="endereco" validate="true"/>
+    </changeSet>
+    <changeSet author="felix (generated)" id="1668387924626-12">
         <addForeignKeyConstraint baseColumnNames="user_id" baseTableName="tb_usuarios_papeis" constraintName="fkh3h5wqk3k1kepj4n25al50qwk" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="usuario" validate="true"/>
+    </changeSet>
+    <changeSet author="felix (generated)" id="1668387924626-13">
+        <addForeignKeyConstraint baseColumnNames="estado_id" baseTableName="endereco" constraintName="fkkkjjxdwdqd6orj4wyixekho8b" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="estado" validate="true"/>
+    </changeSet>
+    <changeSet author="felix (generated)" id="1668387924626-14">
+        <addForeignKeyConstraint baseColumnNames="usuario_id" baseTableName="pessoa" constraintName="fklnwh01s82c3yle784ra0kbdi8" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="user_id" referencedTableName="usuario" validate="true"/>
     </changeSet>
 </databaseChangeLog>
