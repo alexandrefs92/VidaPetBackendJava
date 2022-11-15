@@ -1,41 +1,38 @@
 package com.vidapet.backend.vidapet.backend.controllers;
 
-import com.vidapet.backend.vidapet.backend.models.UserModel;
-import com.vidapet.backend.vidapet.backend.services.UserService;
+import com.vidapet.backend.vidapet.backend.models.EspecieModel;
+import com.vidapet.backend.vidapet.backend.services.EspecieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
-@PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
-@RequestMapping(value = "/users")
-public class UserController {
+@RequestMapping(value = "/especies")
+public class EspecieController {
 
     @Autowired
-    private UserService service;
+    private EspecieService service;
 
     @GetMapping
-    public ResponseEntity<List<UserModel>> findAll() {
-        List<UserModel> list = service.findAll();
+    public ResponseEntity<List<EspecieModel>> findAll() {
+        List<EspecieModel> list = service.findAll();
         return ResponseEntity.ok().body(list);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<UserModel> findById(@PathVariable Long id) {
-        UserModel obj  = service.findById(id);
+    public ResponseEntity<EspecieModel> findById(@PathVariable Long id) {
+        EspecieModel obj  = service.findById(id);
         return ResponseEntity.ok().body(obj);
     }
 
     @PostMapping
-    public ResponseEntity<UserModel> insert(@RequestBody UserModel obj) {
+    public ResponseEntity<EspecieModel> insert(@RequestBody EspecieModel obj) {
         obj = service.insert(obj);
-        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getUserId()).toUri();
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
         return ResponseEntity.created(uri).body(obj);
     }
 
@@ -44,8 +41,9 @@ public class UserController {
         service.delete(id);
         return ResponseEntity.noContent().build();
     }
+
     @PutMapping(value = "/{id}")
-    public ResponseEntity<UserModel> update(@PathVariable Long id, @RequestBody UserModel obj) {
+    public ResponseEntity<EspecieModel> update(@PathVariable Long id, @RequestBody EspecieModel obj) {
         obj = service.update(id, obj);
         return ResponseEntity.ok().body(obj);
     }
