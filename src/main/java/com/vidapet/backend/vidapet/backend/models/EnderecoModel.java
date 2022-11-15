@@ -26,14 +26,6 @@ public class EnderecoModel implements Serializable {
     @OneToOne(mappedBy = "endereco")
     private PessoaModel pessoa;
 
-    public PessoaModel getPessoa() {
-        return pessoa;
-    }
-
-    public void setPessoa(PessoaModel pessoa) {
-        this.pessoa = pessoa;
-    }
-    
     public EnderecoModel() {
     }
 

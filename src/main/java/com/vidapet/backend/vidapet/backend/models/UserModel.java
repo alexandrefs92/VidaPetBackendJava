@@ -26,10 +26,11 @@ public class UserModel implements UserDetails, Serializable {
     @Column(nullable = false, unique = true)
     private String username;
 
+    @JsonIgnore
     @Column(nullable = false)
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "TB_USUARIOS_PAPEIS",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -37,6 +38,8 @@ public class UserModel implements UserDetails, Serializable {
 
     @OneToOne(mappedBy = "user")
     private PessoaModel pessoa;
+
+    private String email;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -89,11 +92,19 @@ public class UserModel implements UserDetails, Serializable {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
 
-    public UserModel(Long userId, String username, String password) {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public UserModel(Long userId, String username, String password, String email) {
         this.userId = userId;
         this.username = username;
         this.password = password;
+        this.email = email;
     }
 
     public UserModel() {
